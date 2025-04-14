@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>APK Build Request</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>APK Build Request</h1>
+    <form name="apk-build-form" method="POST" data-netlify="true" enctype="multipart/form-data">
+      <input type="hidden" name="form-name" value="apk-build-form" />
+      
+      <label>Retailer Shop Name</label>
+      <input type="text" name="retailer_name" required />
+
+      <label>Tenant ID</label>
+      <input type="text" name="tenant_id" required />
+
+      <label>Package Name Suffix</label>
+      <input type="text" name="package_suffix" pattern="[a-z]+" title="Only lowercase alphabets, no spaces" required />
+
+      <label>Start Gradient Color</label>
+      <input type="color" name="start_gradient_color" required />
+
+      <label>Center Gradient Color</label>
+      <input type="color" name="center_gradient_color" required />
+
+      <label>End Gradient Color</label>
+      <input type="color" name="end_gradient_color" required />
+
+      <label>Button Text Color</label>
+      <input type="color" name="button_text_color" required />
+
+      <label>White Button Text Color</label>
+      <input type="color" name="white_button_text_color" required />
+
+      <label>App Icon (PNG)</label>
+      <input type="file" name="app_icon" accept="image/png" required />
+
+      <button type="submit">Submit Build Request</button>
+    </form>
+
+    <!-- Success message after form submission -->
+    <div id="success-message" style="display:none;">
+      ✅ Request submitted! APK will be generated shortly.
+    </div>
+
+    <div id="error-message" style="display:none;">
+      ❌ Something went wrong. Please try again.
+    </div>
+  </div>
+
+  <!-- JavaScript to handle form submission success and error -->
+  <script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      var form = event.target;
+      var formData = new FormData(form);
+      
+      fetch('/', {
+        method: 'POST',
+        body: formData,
+      })
+      .then(function(response) {
+        if (response.ok) {
+          // Hide the form and show success message
+          form.style.display = 'none';
+          document.getElementById('success-message').style.display = 'block';
+        } else {
+          // Show error message if something goes wrong
+          document.getElementById('error-message').style.display = 'block';
+        }
+      })
+      .catch(function(error) {
+        // Show error message if network error occurs
+        document.getElementById('error-message').style.display = 'block';
+      });
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
