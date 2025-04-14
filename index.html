@@ -3,83 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>APK Build Request</title>
+  <title>ChaloOnline APK Builder</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>APK Build Request</h1>
-    <form name="apk-build-form" method="POST" data-netlify="true" enctype="multipart/form-data">
-      <input type="hidden" name="form-name" value="apk-build-form" />
-      
-      <label>Retailer Shop Name</label>
-      <input type="text" name="retailer_name" required />
+  <h1>ChaloOnline APK Builder</h1>
+  <form id="apkForm">
+    <label for="retailer_name">Retailer Shop Name:</label>
+    <input type="text" id="retailer_name" name="retailer_name" required />
 
-      <label>Tenant ID</label>
-      <input type="text" name="tenant_id" required />
+    <label for="tenant_id">Tenant ID:</label>
+    <input type="text" id="tenant_id" name="tenant_id" required />
 
-      <label>Package Name Suffix</label>
-      <input type="text" name="package_suffix" pattern="[a-z]+" title="Only lowercase alphabets, no spaces" required />
+    <label for="package_suffix">Retailer Package Name (small letters only):</label>
+    <input type="text" id="package_suffix" name="package_suffix" required />
 
-      <label>Start Gradient Color</label>
-      <input type="color" name="start_gradient_color" required />
+    <label for="start_color">Start Gradient Color:</label>
+    <input type="text" id="start_color" name="start_color" required />
 
-      <label>Center Gradient Color</label>
-      <input type="color" name="center_gradient_color" required />
+    <label for="center_color">Center Gradient Color:</label>
+    <input type="text" id="center_color" name="center_color" required />
 
-      <label>End Gradient Color</label>
-      <input type="color" name="end_gradient_color" required />
+    <label for="end_color">End Gradient Color:</label>
+    <input type="text" id="end_color" name="end_color" required />
 
-      <label>Button Text Color</label>
-      <input type="color" name="button_text_color" required />
+    <label for="button_color">Button Text Color:</label>
+    <input type="text" id="button_color" name="button_color" required />
 
-      <label>White Button Text Color</label>
-      <input type="color" name="white_button_text_color" required />
+    <label for="white_button_color">White Button Text Color:</label>
+    <input type="text" id="white_button_color" name="white_button_color" required />
 
-      <label>App Icon (PNG)</label>
-      <input type="file" name="app_icon" accept="image/png" required />
+    <label for="image_url">Retailer Logo Image URL (.png preferred):</label>
+    <input type="url" id="image_url" name="image_url" required />
 
-      <button type="submit">Submit Build Request</button>
-    </form>
+    <button type="submit">Build APK</button>
+  </form>
 
-    <!-- Success message after form submission -->
-    <div id="success-message" style="display:none;">
-      ✅ Request submitted! APK will be generated shortly.
-    </div>
-
-    <div id="error-message" style="display:none;">
-      ❌ Something went wrong. Please try again.
-    </div>
-  </div>
-
-  <!-- JavaScript to handle form submission success and error -->
-  <script>
-    document.querySelector('form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      
-      var form = event.target;
-      var formData = new FormData(form);
-      
-      fetch('/', {
-        method: 'POST',
-        body: formData,
-      })
-      .then(function(response) {
-        if (response.ok) {
-          // Hide the form and show success message
-          form.style.display = 'none';
-          document.getElementById('success-message').style.display = 'block';
-        } else {
-          // Show error message if something goes wrong
-          document.getElementById('error-message').style.display = 'block';
-        }
-      })
-      .catch(function(error) {
-        // Show error message if network error occurs
-        document.getElementById('error-message').style.display = 'block';
-      });
-    });
-  </script>
+  <div id="status"></div>
 
   <script src="script.js"></script>
 </body>
